@@ -4,17 +4,31 @@ function extractDelimitors(numberListStr: string): string {
     const delim = numberListStr.substring(startIndex, endIndex);
     return delim;
 }
+
+function extractMultipleDelimitors(delimitorStr:string) {
+    const matches = delimitorStr.match(/\[(.*?)\]/g) || [];
+    return matches.map((match:string) => match.slice(1, -1));
+}
 function getNumbersFromChangedDelimitor(numberListStr: string):string[] {
     let numbers: string[] = [];
     const delim: string = extractDelimitors(numberListStr);
-    numbers = numberListStr.split("\n")[1].split(delim);
+    const isMultipleDelims:boolean = delim.indexOf("[") > -1 && delim.indexOf("]") > -1;
+    const numbersStr:string = numberListStr.split("\n")[1];
+    if (isMultipleDelims) {
+        const multipleDelimitors:string[] = extractMultipleDelimitors(delim);
+        const escapedDelims:string[] = multipleDelimitors.map(delim => delim.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+        const regex:RegExp = new RegExp(escapedDelims.join('|'));
+        numbers = numbersStr.split(regex);
+    } else {
+        numbers = numbersStr.split(delim)
+    }
     return numbers;
 }
 
 function calculateSum(numbers: string[]) {
     let sum: number = 
         numbers
-            .map(num => {
+            .map((num:string) => {
                 let parsed = Number(num.trim());
                 if (isNaN(parsed)) {
                     throw new Error(`Invalid number: ${num}`);
