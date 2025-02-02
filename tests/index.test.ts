@@ -22,8 +22,12 @@ describe('Add function module', () => {
             add("1\n2,7\n-5")
         }).toThrow("Negative numbers not allowed")
     });
-    test('test delimiter change syntax //[delimiter]\n[numbers…]', () => {
+    test('test delimiter change syntax //[delimiter]\n[numbers…]: 1', () => {
         const sum: number = add("//;\n1;2;3");
+        expect(sum).toBe(6);
+    });  
+    test('test delimiter change syntax //[delimiter]\n[numbers…]: 2', () => {
+        const sum: number = add("//**\n1**2**3");
         expect(sum).toBe(6);
     });    
 });
