@@ -17,7 +17,9 @@ describe('Add function module', () => {
         const sum: number = add("1\n2,7\n5");
         expect(sum).toBe(15)
     });
-    test('check for negative numbers not allowed', () => {        
-        expect(add("1\n2,7\n-5")).toThrow("Negative numbers not allowed")
+    test('check for negative numbers not allowed', () => {    
+        expect(() => {
+            add("1\n2,7\n-5")
+        }).toThrow("Negative numbers not allowed")
     });
 });
