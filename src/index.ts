@@ -4,7 +4,7 @@ function add(numberListStr:string): number {
     if (numberListStr.trim().length === 0) {
         sum = 0;
     } else {
-        const numbers = numberListStr.split(/[,]/);
+        const numbers = numberListStr.split(/[,\n]/);
         sum = numbers
                 .map(num => {
                     const parsed = Number(num.trim());
