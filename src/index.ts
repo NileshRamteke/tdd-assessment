@@ -11,12 +11,15 @@ function calculateSum(numbers: string[]) {
     let sum: number = 
         numbers
             .map(num => {
-                const parsed = Number(num.trim());
+                let parsed = Number(num.trim());
                 if (isNaN(parsed)) {
                     throw new Error(`Invalid number: ${num}`);
                 }
                 if (parsed < 0) {
                     throw new Error("Negative numbers not allowed")
+                }
+                if (parsed > 1000) {
+                    parsed = 0;
                 }
                 return parsed;
             })
