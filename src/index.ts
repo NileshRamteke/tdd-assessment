@@ -11,6 +11,9 @@ function add(numberListStr:string): number {
                     if (isNaN(parsed)) {
                         throw new Error(`Invalid number: ${num}`);
                     }
+                    if (parsed < 0) {
+                        throw new Error("Negative numbers not allowed")
+                    }
                     return parsed;
                 })
                 .reduce((sum, num) => sum + num, 0);
