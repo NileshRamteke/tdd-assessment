@@ -1,10 +1,14 @@
-function getNumbersFromChangedDelimitor(numberListStr: string):string[] {
-    let numbers: string[] = [];
+function extractDelimitors(numberListStr: string): string {
     const startIndex = numberListStr.indexOf("//") + 2;
     const endIndex = numberListStr.indexOf("\n", startIndex);   
     const delim = numberListStr.substring(startIndex, endIndex);
+    return delim;
+}
+function getNumbersFromChangedDelimitor(numberListStr: string):string[] {
+    let numbers: string[] = [];
+    const delim: string = extractDelimitors(numberListStr);
     numbers = numberListStr.split("\n")[1].split(delim);
-    return numbers
+    return numbers;
 }
 
 function calculateSum(numbers: string[]) {
