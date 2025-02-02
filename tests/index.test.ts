@@ -30,4 +30,8 @@ describe('Add function module', () => {
         const sum: number = add("//**\n1**2**3");
         expect(sum).toBe(6);
     });    
+    test("test 1 ignore numbers greater than 1000: 1", () => {
+            const sum: number = add("//;\n1;2;3;3000");
+            expect(sum).toBe(6);
+    });
 });
