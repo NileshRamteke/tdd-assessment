@@ -25,5 +25,5 @@ describe('Add function module', () => {
     test('test delimiter change syntax //[delimiter]\n[numbers…]', () => {
         const sum: number = add("//;\n1;2;3");
         expect(sum).toBe(6);
-    })
+    });    
 });

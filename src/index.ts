@@ -7,39 +7,34 @@ function getNumbersFromChangedDelimitor(numberListStr: string):string[] {
     return numbers
 }
 
+function calculateSum(numbers: string[]) {
+    let sum: number = 
+        numbers
+            .map(num => {
+                const parsed = Number(num.trim());
+                if (isNaN(parsed)) {
+                    throw new Error(`Invalid number: ${num}`);
+                }
+                if (parsed < 0) {
+                    throw new Error("Negative numbers not allowed")
+                }
+                return parsed;
+            })
+            .reduce((sum, num) => sum + num, 0);
+    return sum;
+}
+
 function add(numberListStr:string): number {
     let sum: number = 0;
     let isDelimitorChanged:boolean = numberListStr.includes("//");
     if (numberListStr.trim().length === 0) {
         sum = 0;
     } else if(isDelimitorChanged) {
-        const numbers = getNumbersFromChangedDelimitor(numberListStr);
-        sum = numbers
-                .map(num => {
-                    const parsed = Number(num.trim());
-                    if (isNaN(parsed)) {
-                        throw new Error(`Invalid number: ${num}`);
-                    }
-                    if (parsed < 0) {
-                        throw new Error("Negative numbers not allowed")
-                    }
-                    return parsed;
-                })
-                .reduce((sum, num) => sum + num, 0);
+        const numbers: string[] = getNumbersFromChangedDelimitor(numberListStr);
+        sum = calculateSum(numbers);
     } else {
         const numbers = numberListStr.split(/[,\n]/);
-        sum = numbers
-                .map(num => {
-                    const parsed = Number(num.trim());
-                    if (isNaN(parsed)) {
-                        throw new Error(`Invalid number: ${num}`);
-                    }
-                    if (parsed < 0) {
-                        throw new Error("Negative numbers not allowed")
-                    }
-                    return parsed;
-                })
-                .reduce((sum, num) => sum + num, 0);
+        sum = calculateSum(numbers);
     }
     return sum;
 }
